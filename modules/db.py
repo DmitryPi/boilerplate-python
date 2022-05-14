@@ -14,14 +14,6 @@ class Database:
                 example_bool boolean NOT NULL,
                 created text NOT NULL
             );""".format(self.config['DB']['table'])
-        self.sql_insert_into_project = """
-            INSERT OR IGNORE INTO {} (
-                    uid,
-                    example_bool,
-                    created
-                )
-                VALUES(?,?)
-            """.format(self.config['DB']['table'])
 
     def db_create_connection(self, db_file='db.sqlite3'):
         """Connect to db/Create `db.sqlite3` in root folder if not exist"""
@@ -44,16 +36,15 @@ class Database:
         except Exception as e:
             handle_error(e)
 
-    def db_insert_object(self, conn, sql, data):
-        """Pass arguments: conn, sql, data; Execute sql; commit"""
+    def db_insert_object(self, conn, table: str, fields: tuple, values: tuple):
         try:
             cur = conn.cursor()
-            cur.execute(sql, data)
+            cur.execute(f'INSERT OR IGNORE INTO {table} {fields} VALUES {values}')
             conn.commit()
         except Exception as e:
             handle_error(e)
 
-    def db_update_object(self, conn, table, column, field, values):
+    def db_update_object(self, conn, table: str, column: str, field: str, values: tuple):
         """Update table object field values"""
         try:
             cur = conn.cursor()
@@ -62,7 +53,7 @@ class Database:
         except Exception as e:
             handle_error(e)
 
-    def db_delete_object(self, conn, table, field, value):
+    def db_delete_object(self, conn, table: str, field: str, value):
         """Delete table object"""
         try:
             cur = conn.cursor()
@@ -71,7 +62,7 @@ class Database:
         except Exception as e:
             handle_error(e)
 
-    def db_get_objects_all(self, conn, table):
+    def db_get_objects_all(self, conn, table: str):
         """Return queryset of table objects"""
         try:
             cur = conn.cursor()
@@ -80,7 +71,7 @@ class Database:
         except Exception as e:
             handle_error(e)
 
-    def db_get_objects_filter_by_value(self, conn, table, column, value):
+    def db_get_objects_filter_by_value(self, conn, table: str, column: str, value):
         """Filter db table by column value"""
         try:
             cur = conn.cursor()
@@ -89,7 +80,7 @@ class Database:
         except Exception as e:
             handle_error(e)
 
-    def db_get_objects_field_values(self, conn, table, field):
+    def db_get_objects_field_values(self, conn, table: str, field: str):
         """Select field values from table"""
         try:
             conn.row_factory = lambda cursor, row: row[0]
