@@ -55,9 +55,21 @@ class Database:
 
     def db_update_object(self, conn, table, column, field, values):
         """Update table object field values"""
-        cur = conn.cursor()
-        cur.execute(f'UPDATE {table} SET {column}=? WHERE {field}=?', values)
-        conn.commit()
+        try:
+            cur = conn.cursor()
+            cur.execute(f'UPDATE {table} SET {column}=? WHERE {field}=?', values)
+            conn.commit()
+        except Exception as e:
+            handle_error(e)
+
+    def db_delete_object(self, conn, table, field, value):
+        """Delete table object"""
+        try:
+            cur = conn.cursor()
+            cur.execute(f'DELETE FROM {table} WHERE {field}=?', value)
+            conn.commit()
+        except Exception as e:
+            handle_error(e)
 
     def db_get_objects_all(self, conn, table):
         """Return queryset of table objects"""
