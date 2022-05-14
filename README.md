@@ -1,5 +1,8 @@
 # Python Boilerplate
 > Lightweight boilerplate for small python projects
+> Comes with easy-to-configure sqlite db and basic CRUD methods
+> Boilerplate follows PEP8 standard
+
 
 ## Features
 
