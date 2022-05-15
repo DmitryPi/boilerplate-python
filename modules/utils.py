@@ -32,12 +32,10 @@ def load_config(config_fp='config.ini'):
     return config
 
 
-def handle_error(error, to_file=False, to_file_path='error_log.txt', to_sentry=False):
+def handle_error(error, to_file=False, to_file_path='error_log.txt'):
     """Handle error by writing to file/sending to sentry/raising"""
     if to_file:
         with open(to_file_path, 'a', encoding='utf-8') as f:
             f.write(error + '\n')
-    elif to_sentry:
-        pass
     else:
         raise error
