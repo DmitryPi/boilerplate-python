@@ -5,16 +5,18 @@ import codecs
 def build_config(config_name='config.ini') -> None:
     """Build default config section key/values"""
     config = configparser.ConfigParser()
-    config['MAIN'] = {
-        'debug': True,
-    }
-    config['DB'] = {
-        'table': 'project',
-    }
-    config['SENTRY'] = {
-        'dsn': '',
-        'log_level': 20,
-    }
+    config.update({
+        'MAIN': {
+            'debug': True,
+        },
+        'DB': {
+            'table': 'scrapers'
+        },
+        'SENTRY': {
+            'dsn': '',
+            'log_level': 20
+        },
+    })
     with open(config_name, 'w') as f:
         print('- Creating new config')
         config.write(f)
