@@ -6,7 +6,9 @@
 ## Startup
     Create virtualenv
     pip install -r requirements.txt
-    git init  &&  git add .  &&  git commit -m "initial"
+    git init
+    git add .
+    git commit -m "initial"
     git remote add origin {GITREPO.git}
     git branch -M main
     git push origin main
