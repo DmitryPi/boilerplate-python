@@ -69,3 +69,17 @@ class TestDatabase(TestCase):
         self.assertTrue(len(qs))
         for obj in qs:
             self.assertTrue(obj[0] != 2)
+
+    def test_get_objects_filter_by_value(self):
+        qs = self.db.get_objects_filter_by_value(self.db_conn, self.db_table, 'test_bool', False)
+        self.assertTrue(not len(qs))
+        qs = self.db.get_objects_filter_by_value(self.db_conn, self.db_table, 'test_bool', True)
+        self.assertTrue(len(qs))
+
+    def test_get_objects_field_values(self):
+        qs = self.db.get_objects_field_values(self.db_conn, self.db_table, 'test_text')
+        self.assertTrue(len(qs))
+        self.assertTrue(isinstance(qs, list))
+        for obj in qs:
+            self.assertTrue(isinstance(obj, str))
+            self.assertTrue('test' in obj)

@@ -56,7 +56,7 @@ class Database:
         except Exception as e:
             handle_error(e)
 
-    def delete_object(self, conn, table, field, value):
+    def delete_object(self, conn, table: str, field: str, value):
         """Delete table object"""
         try:
             cur = conn.cursor()
@@ -65,7 +65,7 @@ class Database:
         except Exception as e:
             handle_error(e)
 
-    def get_objects_all(self, conn, table: str):
+    def get_objects_all(self, conn, table: str) -> list:
         """Return queryset of table objects"""
         try:
             cur = conn.cursor()
@@ -74,7 +74,7 @@ class Database:
         except Exception as e:
             handle_error(e)
 
-    def get_objects_filter_by_value(self, conn, table: str, column: str, value):
+    def get_objects_filter_by_value(self, conn, table: str, column: str, value) -> list:
         """Filter db table by column value"""
         try:
             cur = conn.cursor()
@@ -83,11 +83,12 @@ class Database:
         except Exception as e:
             handle_error(e)
 
-    def get_objects_field_values(self, conn, table: str, field: str):
-        """Select field values from table"""
+    def get_objects_field_values(self, conn, table: str, column: str) -> list:
+        """Select column values from table"""
         try:
             conn.row_factory = lambda cursor, row: row[0]
             cur = conn.cursor()
-            return cur.execute(f'SELECT {field} FROM {table}').fetchall()
+            cur.execute(f'SELECT {column} FROM {table}')
+            return cur.fetchall()
         except Exception as e:
             handle_error(e)
