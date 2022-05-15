@@ -3,7 +3,7 @@ import os
 from unittest import TestCase
 from pathlib import Path
 
-from modules.db import Database
+from ..db import Database
 
 
 test_db = 'testdb.sqlite3'

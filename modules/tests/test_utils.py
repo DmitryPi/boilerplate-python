@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from modules.utils import load_config
+from ..utils import load_config
 
 
 class TestUtils(TestCase):
