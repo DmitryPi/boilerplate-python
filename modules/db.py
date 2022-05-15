@@ -1,5 +1,5 @@
-import sqlite3
 import logging
+import sqlite3
 
 from modules.utils import load_config, handle_error
 
